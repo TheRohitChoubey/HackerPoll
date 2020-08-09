@@ -1,0 +1,257 @@
+<div class="image">
+    <header>
+        <nav class="navbar navbar-dark bg-dark  navbar-expand-lg">
+            <ul class="navbar-nav mr-auto">
+                <div *ngIf="(this.adminEmail); then ifBlock else elseBlock"></div>
+                <ng-template #ifBlock>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/poll']">
+                            <h5>Home</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" [routerLink]="['/user']">
+                            <h5>Add</h5>
+                        </a>
+                    </li>
+                    <a class="nav-link"  (click)="logOut()">
+                        <h5>Log Out</h5>
+                    </a>
+                </ng-template>
+
+                <ng-template #elseBlock>
+                    <li class="nav-item">
+                        <a class="nav-link" [routerLink]="['/poll']">
+                            <h5>Home</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" [routerLink]="['/login']">
+                            <h5>Login</h5>
+                        </a>
+                    </li>
+                </ng-template>
+            </ul>
+        </nav>
+    </header>
+    <div class="container">
+        <div *ngIf="(this.adminEmail); then formBlock else tableBlock"></div>
+        <ng-template #formBlock>
+            <div class="form-group">
+                <form [formGroup]="registerForm" (ngSubmit)="submit()">
+                    <div class="col-4">
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('email').errors&&
+                            (registerForm.get('email').touched|| registerForm.get('email').dirty) }">
+                                <label class="text-success">Email</label>
+                                <input type="email" formControlName="email" class="form-control" placeholder="Enter your Email">
+                                <span class="help-block" *ngIf="registerForm.get('email').errors&&
+                                (registerForm.get('email').touched || registerForm.get('email').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('email').errors.required ">
+                                        Email is required
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('email').errors.email ">
+                                        Email type is required
+                                    </span>
+                                </span>
+                            </div>
+                        
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('username').errors&&
+                            (registerForm.get('username').touched || registerForm.get('username').dirty) }">
+                                <label class="text-success">Name</label>
+                                <input type="text" formControlName="username" class="form-control" placeholder="Enter your Name">
+                                <span class="help-block" *ngIf="registerForm.get('username').errors&&
+                                (registerForm.get('username').touched || registerForm.get('username').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('username').errors.required ">
+                                        Name is required
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('username').errors.minlength ">
+                                        Minimum length should be 3 characters
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('location').errors&&
+                            (registerForm.get('location').touched || registerForm.get('location').dirty) }">
+                                <label class="text-success">Location</label>
+                                <input type="text" formControlName="location" class="form-control" placeholder="Enter the location">
+                                <span class="help-block" *ngIf="registerForm.get('location').errors&&
+                                (registerForm.get('location').touched || registerForm.get('location').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('location').errors.required ">
+                                        location is required
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('contest').errors&&
+                            (registerForm.get('contest').touched || registerForm.get('contest').dirty) }">
+                                <label class="text-success">Contest solved</label>
+                                <input type="number" formControlName="contest" class="form-control" placeholder="Enter the number of contest solved">
+                                <span class="help-block" *ngIf="registerForm.get('contest').errors&&
+                                (registerForm.get('contest').touched || registerForm.get('contest').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('contest').errors.required ">
+                                        Contest solved is required
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('contest').errors.min ">
+                                        Minimum zero can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('contest').errors.max ">
+                                        Maximum 5 can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('contest').errors.pattern ">
+                                        Only positive numeric value can be entered
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('dataStructureRating').errors&&
+                            (registerForm.get('dataStructureRating').touched || registerForm.get('dataStructureRating').dirty) }">
+                                <label class="text-success">Data Structures Rating</label>
+                                <input type="number" formControlName="dataStructureRating" class="form-control" placeholder="Enter Data Structures Rating">
+                                <span class="help-block" *ngIf="registerForm.get('dataStructureRating').errors&&
+                                (registerForm.get('dataStructureRating').touched || registerForm.get('dataStructureRating').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('dataStructureRating').errors.required ">
+                                        Data Structures Rating is required
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('dataStructureRating').errors.min ">
+                                        Minimum zero can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('dataStructureRating').errors.max ">
+                                        Maximum 5 can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('dataStructureRating').errors.pattern ">
+                                        Only positive numeric value can be entered
+                                    </span>
+                                </span>
+                            </div>
+                    </div>
+
+                    <div class="col-4">
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('pythonRating').errors&&
+                            (registerForm.get('pythonRating').touched || registerForm.get('pythonRating').dirty) }">
+                                <label class="text-success">Python Rating</label>
+                                <input type="number" formControlName="pythonRating" class="form-control" placeholder="Enter Python Rating">
+                                <span class="help-block" *ngIf="registerForm.get('pythonRating').errors&&
+                                (registerForm.get('pythonRating').touched || registerForm.get('pythonRating').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('pythonRating').errors.required ">
+                                        Python Rating is required
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('pythonRating').errors.min ">
+                                        Minimum zero can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('pythonRating').errors.max ">
+                                        Maximum 5 can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('pythonRating').errors.pattern ">
+                                        Only positive numeric value can be entered
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('cppRating').errors&&
+                            (registerForm.get('cppRating').touched || registerForm.get('cppRating').dirty) }">
+                                <label class="text-success">Cpp Rating</label>
+                                <input type="number" formControlName="cppRating" class="form-control" placeholder="Enter your Cpp Rating">
+                                <span class="help-block" *ngIf="registerForm.get('cppRating').errors&&
+                                (registerForm.get('cppRating').touched || registerForm.get('cppRating').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('cppRating').errors.required ">
+                                        Cpp Rating is required
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('cppRating').errors.min ">
+                                        Minimum zero can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('cppRating').errors.max ">
+                                        Maximum 5 can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('cppRating').errors.pattern ">
+                                        Only positive numeric value can be entered
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('javaRating').errors&&
+                            (registerForm.get('javaRating').touched || registerForm.get('javaRating').dirty) }">
+                                <label class="text-success">Java Rating</label>
+                                <input type="number" formControlName="javaRating" class="form-control" placeholder="Enter Java Rating">
+                                <span class="help-block" *ngIf="registerForm.get('javaRating').errors&&
+                                (registerForm.get('javaRating').touched || registerForm.get('javaRating').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('javaRating').errors.required ">
+                                        Java Rating is required
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('javaRating').errors.min ">
+                                        Minimum zero can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('javaRating').errors.max ">
+                                        Maximum 5 can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('javaRating').errors.pattern ">
+                                        Only positive numeric value can be entered
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group" [ngClass]="{'has-error' : registerForm.get('algorithmsRating').errors&&
+                            (registerForm.get('algorithmsRating').touched || registerForm.get('algorithmsRating').dirty) }">
+                                <label class="text-success">Algorithms Rating</label>
+                                <input type="number" formControlName="algorithmsRating" class="form-control" placeholder="Enter Algorithms Rating">
+                                <span class="help-block" *ngIf="registerForm.get('algorithmsRating').errors&&
+                                (registerForm.get('algorithmsRating').touched || registerForm.get('algorithmsRating').dirty) ">
+                                    <span class="text-danger" *ngIf="registerForm.get('algorithmsRating').errors.required ">
+                                        Algorithms Rating is required
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('algorithmsRating').errors.min ">
+                                        Minimum zero can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('algorithmsRating').errors.max ">
+                                        Maximum 5 can be entered
+                                    </span>
+                                    <span class="text-danger" *ngIf="registerForm.get('algorithmsRating').errors.pattern ">
+                                        Only positive numeric value can be entered
+                                    </span>
+                                </span>
+                            </div>
+                    </div>
+                    <input type="submit" [disabled]="!registerForm.valid" class="btn btn-success btn-lg" value="Register/Update" />
+                </form>
+            </div>
+        </ng-template>
+        <ng-template #tableBlock>
+            <table class="table table-hover table-striped table-light">
+                <tbody class="table table-light">
+                    <tr class="row">
+                        <th class ="col-4 text-center">Email</th>
+                        <td class ="col-4 text-center"  *ngIf="(this.candidateDetail);" >{{this.candidateDetail.email}}</td>
+                    </tr>
+                    <tr class="row">
+                        <th class ="col-4 text-center">Name</th>
+                        <td class ="col-4 text-center" *ngIf="(this.candidateDetail);">{{this.candidateDetail.username}}</td>
+                    </tr>
+                    <tr class="row">
+                        <th class ="col-4 text-center">Location</th>
+                        <td class ="col-4 text-center" *ngIf="(this.candidateDetail);">{{this.candidateDetail.location}}</td>
+                    </tr>
+                    <tr class="row">
+                        <th class ="col-4 text-center">Contest solved</th>
+                        <td class ="col-4 text-center" *ngIf="(this.candidateDetail);">{{this.candidateDetail.contest}}</td>
+                    </tr>
+                    <tr class="row">
+                        <th class ="col-4 text-center">Data Structures Rating</th>
+                        <td class ="col-4 text-center" *ngIf="(this.candidateDetail);">{{this.candidateDetail.datastructure}}</td>
+                    </tr>
+                    <tr class="row">
+                        <th class ="col-4 text-center">Python Rating</th>
+                        <td class ="col-4 text-center" *ngIf="(this.candidateDetail);">{{this.candidateDetail.python}}</td>
+                    </tr>
+                    <tr class="row">
+                        <th class ="col-4 text-center">Cpp Rating</th>
+                        <td class ="col-4 text-center" *ngIf="(this.candidateDetail);">{{this.candidateDetail.cpp}}</td>
+                    </tr>
+                    <tr class="row">
+                        <th class ="col-4 text-center">Java Rating</th>
+                        <td class ="col-4 text-center" *ngIf="(this.candidateDetail);">{{this.candidateDetail.java}}</td>
+                    </tr>
+                    <tr class="row">
+                        <th class ="col-4 text-center">Algorithms Rating</th>
+                        <td class ="col-4 text-center" *ngIf="(this.candidateDetail);">{{this.candidateDetail.algorithms}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="text-center"> 
+                <button type="button" class="btn btn-success" (click)="voteNow()">Vote For Me</button>    
+            </div>
+        </ng-template>
+    </div>
+</div>

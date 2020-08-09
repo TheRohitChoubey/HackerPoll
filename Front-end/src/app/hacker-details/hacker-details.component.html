@@ -1,0 +1,61 @@
+<div>
+    <header>
+        <nav class="navbar navbar-dark bg-dark  navbar-expand-lg">
+            <ul class="navbar-nav mr-auto">
+                <div *ngIf="(this.email); then ifBlock else elseBlock"></div>
+                <ng-template #ifBlock>
+                    <li class="nav-item active">
+                        <a class="nav-link" [routerLink]="['/poll']">
+                            <h5>Home</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" [routerLink]="['/user']">
+                            <h5>Add</h5>
+                        </a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" (click)="logOut()">
+                            <h5>Log Out</h5>
+                        </a>
+                    </li>
+                </ng-template>
+
+                <ng-template #elseBlock>
+                    <li class="nav-item active">
+                        <a class="nav-link" [routerLink]="['/login']">
+                            <h5>Login</h5>
+                        </a>
+                    </li>
+                </ng-template>
+            </ul>
+        </nav>
+    </header>
+</div>
+<div>
+    <div class="container">
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+            <ng-container matColumnDef="username">
+                <th mat-header-cell *matHeaderCellDef> Candidate Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+            </ng-container>
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email</th>
+                <td mat-cell *matCellDef="let element">{{element.email}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="votes">
+                <th mat-header-cell *matHeaderCellDef> Votes</th>
+                <td mat-cell *matCellDef="let element">{{element.votes}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="getRecord(row)"></tr>
+        </table>
+    </div>
+</div>
